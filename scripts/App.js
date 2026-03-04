@@ -15,7 +15,7 @@ function renderTasks() {
     todos.forEach((todo, index) => {
         const li = document.createElement('li');
         li.innerHTML = `
-            <span style="text-decoration:${todo.completed?'line-through':''}">${todo.task}</span>
+            <script src="scripts/App.js"></script>
             <div>
                 <button onclick="toggleComplete(${index})">✔</button>
                 <button onclick="deleteTask(${index})">✖</button>
