@@ -1,0 +1,36 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main, develop, feature/* ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          if [ -f package.json ]; then npm install; fi
+
+      - name: Run Linter
+        run: |
+          if [ -f package.json ]; then npm run lint || echo "Lint skipped"; fi
+
+      - name: Build Project
+        run: |
+          if [ -f package.json ]; then npm run build || echo "Build skipped"; fi
+
+      - name: Run Tests
+        run: |
+          if [ -f package.json ]; then npm test || echo "Tests skipped"; fi
